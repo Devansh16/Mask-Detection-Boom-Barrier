@@ -1,4 +1,5 @@
-# MASK DETECTION BOOM BARRIER
+<p align="center"> # INFECTO-BAR </p>
+<p align="center"> ## MASK DETECTION BOOM BARRIER </p>
 
 <p align="center"><a href="" target="_blank" rel="noopener noreferrer"><img width="200" src="https://github.com/Devansh16/Mask-Detection-Boom-Barrier/blob/master/BOOM%20Barrier.png" alt="Infecto-Bar Logo"></a></p>
 
