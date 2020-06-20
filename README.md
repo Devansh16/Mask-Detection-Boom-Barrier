@@ -1,5 +1,5 @@
-# <p align="center"> INFECTO-BAR </p>
-## <p align="center"> Face-Mask Detection Controlled Boom Barrier </p>
+# <p align="center"> InfectoBar </p>
+## <p align="center"> Face-mask Detection Controlled Boom Barrier </p>
 
 <p align="center"><a href="" target="_blank" rel="noopener noreferrer"><img width="200" src="https://github.com/Devansh16/Mask-Detection-Boom-Barrier/blob/master/BOOM%20Barrier.png" alt="Infecto-Bar Logo"></a></p>
 
