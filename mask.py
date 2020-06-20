@@ -17,13 +17,20 @@ data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
 cap= cv2.VideoCapture(0)
 
+classifier = cv2.CascadeClassifier('haarcascade_frontalface_alt.xml')
+
 while(cap.isOpened()):
     ret, frame = cap.read()
     if ret == False:
         continue
-    cv2.imwrite('test_photo2.jpg',frame)
+        
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY) 
+
+    faces = classifier.detectMultiScale(gray, 1.5, 5) 
+
+    X_test = [] 
     
-    cv2.imshow("Video Frame",frame)
+    cv2.imwrite('test_photo2.jpg',frame)
 
     # Replace this with the path to your image
     image = Image.open('test_photo2.jpg')
@@ -51,7 +58,26 @@ while(cap.isOpened()):
     if prediction[0,0] > 0.8:
         print("MASK")
     else:
-        print("NO MASK")
+
+        for face in faces: 
+            x, y, w, h = face 
+            im_face = gray[y:y + h, x:x + w] 
+            im_face = cv2.resize(im_face, (224, 224)) 
+            X_test.append(im_face.reshape(-1))
+        
+        for i, face in enumerate(faces): 
+            x, y, w, h = face 
+
+            # drawing a rectangle on the detected face 
+            cv2.rectangle(frame, (x, y), (x + w, y + h), 
+                          (0, 0, 255), 3) 
+
+            # adding detected/predicted name for the face 
+            cv2.putText(frame, "NO MASK", (x-50, y-50), 
+                            cv2.FONT_HERSHEY_DUPLEX, 2, 
+                                    (0, 0, 255), 3)
+    
+    cv2.imshow("Video Frame",frame)
     
     key_pressed = cv2.waitKey(1) & 0xFF
     #gives ASCII value of pressed key 
