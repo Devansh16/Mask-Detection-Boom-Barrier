@@ -20,16 +20,17 @@ void loop()
   while (Serial.available())    
   { 
     data = Serial.read();
+    Serial.println(data);
   }
   
-  if (data == '1')
+  if (data == 'o')
   {
     digitalWrite (LED, HIGH);
     myservo.write(90);             
     delay(5000);
     myservo.write(0);              
   }                 
-  else if (data == '0')
+  else if (data == 'c')
   {
   digitalWrite (LED, LOW);                  
   myservo.write(0);
