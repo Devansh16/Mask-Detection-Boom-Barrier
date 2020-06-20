@@ -1,8 +1,38 @@
+# Mask Detection Boom Barrier
+# Author: Muskan Jain and Devansh Chawla
+# Date Created: June 20, 2020 (Last Updated: June 20, 2020)
+
 import tensorflow.keras
 from PIL import Image, ImageOps
 import numpy as np
 import cv2
 import time
+import serial
+from serial.tools import list_ports
+
+port_name = []
+
+print('Connect Device and press c')
+c = input()
+if c == 'c':
+    ports = list(list_ports.comports())
+    for p in ports:
+        port_name.append(p[0])
+        
+    #get a serial instance as ser and configure later
+    ser = serial.Serial()
+    ser.baudrate = 9600
+    ser.timeout = 1
+    ser.port = port_name[0]
+    
+    for p in port_name:
+        try:
+            ser.port = p
+            ser.open()
+            print("connected to " + ser.port)
+            break
+        except:
+            print(p + " Already Opend ! Retrying... ")
 
 # Disable scientific notation for clarity
 np.set_printoptions(suppress=True)
@@ -55,10 +85,11 @@ while(cap.isOpened()):
     # run the inference
     prediction = model.predict(data)
     
-    if prediction[0,0] > 0.8:
+    if prediction[0,0] > 0.9:
         print("MASK")
+        ser.write('o'.encode())                      #send 1 to the arduino's Data code                
     else:
-
+        ser.write('c'.encode())
         for face in faces: 
             x, y, w, h = face 
             im_face = gray[y:y + h, x:x + w] 
